@@ -1,0 +1,20 @@
+# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
+v: 0
+micros:
+  - name: shorturl-api
+    icon: ./public/icon.png
+    src: .
+    engine: nodejs16
+    primary: true
+    run: npm run start
+    presets:
+      env:
+        - name: API_CUTTLY
+          description: "Cuttly API Key"
+          default: ""
+        - name: API_BITLY
+          description: "Bitly API Key"
+          default: ""
+        - name: API_TINYURL
+          description: "TinyURL API Key"
+          default: ""
