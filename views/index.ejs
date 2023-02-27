@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>URL Shortener</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <link
+      rel="shortcut icon"
+      href="https://cdn.glitch.global/5d837a91-fe36-468b-a963-9a314a5568d5/icon.png?v=1652885326217"
+    />
+
+    <!-- Meta tags for SEO and social sharing -->
+    <meta name="author" content="Rasyid Rafi" />
+    <link rel="canonical" href="https://shorturl.rasyidrafi.my.id/" />
+    <meta name="description" content="Homemade Simple Url Shortener" />
+    <meta name="robots" content="index,follow" />
+    <meta property="og:title" content="Simple Url Shortener" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://shorturl.rasyidrafi.my.id" />
+    <meta property="og:description" content="Simple Url Shortener" />
+    <meta property="og:image" content="./icon.png" />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.14/dist/sweetalert2.min.css"
+      integrity="sha256-vi0IHEWWjH+X+5ImyV6kj/fBMFzSTz4uPlUjRhRTuDQ="
+      crossorigin="anonymous"
+    />
+
+    <style>
+      * {
+        font-family: "Manrope", sans-serif;
+      }
+
+      body {
+        background-color: #209cee;
+        width: 100vw;
+        height: 100vh;
+        /* animation: rainbow 60s ease infinite; */
+      }
+
+      @keyframes rainbow {
+        0% {
+          background-color: #ff3a3a;
+        }
+        8.333% {
+          background-color: #c96500;
+        }
+        16.667% {
+          background-color: #c1c100;
+        }
+        25.000% {
+          background-color: #62c400;
+        }
+        33.333% {
+          background-color: #00c600;
+        }
+        41.667% {
+          background-color: #00b85c;
+        }
+        50.000% {
+          background-color: #00c4c4;
+        }
+        58.333% {
+          background-color: #0067ce;
+        }
+        66.667% {
+          background-color: #3e3eff;
+        }
+        75.000% {
+          background-color: #9123ff;
+        }
+        83.333% {
+          background-color: #ff00ff;
+        }
+        91.667% {
+          background-color: #ff0080;
+        }
+        100.00% {
+          background-color: #ff3a3a;
+        }
+      }
+
+      h1,
+      h4 {
+        font-weight: bolder;
+        color: white;
+        display: block;
+      }
+
+      .card {
+        background-color: white;
+        border-radius: 10x;
+        margin-top: 10px;
+        width: 40vw;
+        height: 50px;
+        outline: none;
+        padding: 5px 10px;
+        text-align: center;
+      }
+
+      /* on small devices */
+      @media (max-width: 575.98px) {
+        .card {
+          width: 90vw;
+        }
+      }
+    </style>
+  </head>
+  <body class="d-flex justify-content-center align-items-center flex-column">
+    <h1>URL Shortener</h1>
+    <h4>Powered by Rasyid Rafi</h4>
+
+    <input
+      id="url-input"
+      type="url"
+      oninput="handleUrl(event)"
+      placeholder="Input Your URL Here..."
+      class="card text-secondary"
+    />
+    <div
+      class="justify-content-center btn-container d-flex flex-wrap my-3"
+      style="gap: 5px"
+    >
+      <button
+        style="
+          width: 50px;
+          height: 50px;
+          background-color: white;
+          cursor: pointer;
+        "
+        type="button"
+        id="cuttly"
+        disabled
+        class="submit-btn d-flex align-items-center justify-content-center btn border-0"
+      >
+        <img
+          width="100%"
+          src="https://cdn.glitch.global/5d837a91-fe36-468b-a963-9a314a5568d5/cuttly.png?v=1652885326217"
+          alt=""
+        />
+      </button>
+
+      <button
+        id="bitly"
+        style="
+          width: 50px;
+          height: 50px;
+          background-color: white;
+          cursor: pointer;
+        "
+        type="button"
+        disabled
+        class="submit-btn d-flex align-items-center justify-content-center btn border-0"
+      >
+        <img
+          width="100%"
+          src="https://cdn.glitch.global/5d837a91-fe36-468b-a963-9a314a5568d5/bitly.png?v=1652885326217"
+          alt=""
+        />
+      </button>
+
+      <button
+        id="shorturlat"
+        style="
+          width: 50px;
+          height: 50px;
+          background-color: white;
+          cursor: pointer;
+        "
+        type="button"
+        disabled
+        class="submit-btn d-flex align-items-center justify-content-center btn border-0"
+      >
+        <img width="100%" src="https://cdn.glitch.global/5d837a91-fe36-468b-a963-9a314a5568d5/shorturlat.ico?v=1652885326217" alt="" />
+      </button>
+
+      <button
+        id="tinyurl"
+        style="
+          width: 50px;
+          height: 50px;
+          background-color: white;
+          cursor: pointer;
+        "
+        type="button"
+        disabled
+        class="submit-btn d-flex align-items-center justify-content-center btn border-0"
+      >
+        <img width="100%" src="https://cdn.glitch.global/5d837a91-fe36-468b-a963-9a314a5568d5/tinyurl.png?v=1652885326515" alt="" />
+      </button>
+
+      <button
+        id="tinyone"
+        style="
+          width: 50px;
+          height: 50px;
+          background-color: white;
+          cursor: pointer;
+        "
+        type="button"
+        disabled
+        class="submit-btn d-flex align-items-center justify-content-center btn border-0"
+      >
+        <img width="100%" src="https://cdn.glitch.global/5d837a91-fe36-468b-a963-9a314a5568d5/tinyone.png?v=1652885326440" alt="" />
+      </button>
+
+      <button
+        id="rotf"
+        style="
+          width: 50px;
+          height: 50px;
+          background-color: white;
+          cursor: pointer;
+        "
+        type="button"
+        disabled
+        class="submit-btn d-flex align-items-center justify-content-center btn border-0"
+      >
+        <img width="100%" src="https://cdn.glitch.global/5d837a91-fe36-468b-a963-9a314a5568d5/rotf.png?v=1652885326406" alt="" />
+      </button>
+    </div>
+    <span
+      id="output"
+      class="card-mini card text-secondary d-flef align-items-center justify-content-center"
+      >Output...</span
+    >
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.14/dist/sweetalert2.min.js"
+      integrity="sha256-Q4y7PLKBL/avVSadwKu6/c1ZkyEmXeRBsnu4oqm03dc="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      let handleUrl = (e) => {
+        let url = e.target.value;
+        e.target.value = url.replace(/^\s+/, "");
+        // validate url regex
+        let regex =
+          /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
+        if (regex.test(url)) {
+          $(".submit-btn").removeClass("disabled").prop("disabled", false);
+        } else {
+          $(".submit-btn").addClass("disabled").prop("disabled", true);
+        }
+      };
+
+      let urlInput = () => $("#url-input").val();
+
+      $(".submit-btn").click(function () {
+        if (!urlInput()) return;
+        $(".submit-btn").addClass("disabled").prop("disabled", true);
+        const currentIcon = $(this).html();
+        $(this).html(
+          `<div class="spinner-border spinner-border-sm text-dark" role="status"><span class="visually-hidden">Loading...</span></div>`
+        );
+
+        const provider = $(this).attr("id");
+
+        $.get(
+          `${
+            window.location.origin
+          }/api?link=${urlInput()}&provider=${provider}`,
+          (result) => {
+            $(this).html(currentIcon);
+            $(".submit-btn").removeClass("disabled").prop("disabled", false);
+            // if success
+            if (result.status == "success") {
+              let short = () => {
+                switch (provider) {
+                  case "bitly":
+                    return result.data.data.link;
+                    break;
+
+                  case "cuttly":
+                    return result.data.data.url.shortLink;
+                    break;
+
+                  case "shorturlat":
+                    return result.data.data;
+                    break;
+
+                  case "tinyurl":
+                  case "tinyone":
+                  case "rotf":
+                    return result.data.data.data.tiny_url;
+                    break;
+
+                  default:
+                    return "";
+                    break;
+                }
+              };
+              $("#url-input").val("");
+              $("#output").html(
+                `<a href="${short()}" target="_blank">${short()}</a>`
+              );
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Gagal...",
+                text: "Maaf, Gagal membuat shortlink!",
+              });
+            }
+          }
+        );
+      });
+    </script>
+  </body>
+</html>

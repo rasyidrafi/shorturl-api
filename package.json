@@ -1,0 +1,31 @@
+{
+  "name": "shorturl-api",
+  "version": "1.0.0",
+  "description": "Simple ShortURL API",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cheerio": "^1.0.0-rc.10",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "jsendie": "0.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  },
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rasyidrafi/shorturl-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rasyidrafi/shorturl-api/issues"
+  },
+  "homepage": "https://github.com/rasyidrafi/shorturl-api"
+}
