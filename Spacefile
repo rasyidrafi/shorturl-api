@@ -1,8 +1,8 @@
 # Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
 v: 0
+icon: ./public/icon.png
 micros:
   - name: shorturl-api
-    icon: ./public/icon.png
     src: .
     engine: nodejs16
     primary: true
