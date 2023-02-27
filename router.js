@@ -9,7 +9,7 @@ const Shorturlat = require("./wrapper/shorturlat");
 
 router.get("/", (_, res) => res.render("index"));
 
-router.get("/api", (req, res) => {
+router.get("/api", async (req, res) => {
   // get url parameter
   const link = ("" + req.query.link).trim();
   if (!link || !req.query.link) {
@@ -44,11 +44,12 @@ router.get("/api", (req, res) => {
         break;
     }
 
-    const result = API.shortenLink(link);
+    const result = await API.shortenLink(link);
+
     res.success({
-      message: "success",
+      url: result.url,
       provider: provider,
-      data: result,
+      dynamic_data: result.data,
     })
   } catch (error) {
     console.error(error);

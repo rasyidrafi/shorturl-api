@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="/icon.png"/>
+    <link rel="shortcut icon" href="/icon.png" />
 
     <!-- Meta tags for SEO and social sharing -->
     <meta name="author" content="Rasyid Rafi" />
@@ -161,11 +161,7 @@
         disabled
         class="submit-btn d-flex align-items-center justify-content-center btn border-0"
       >
-        <img
-          width="100%"
-          src="/cuttly.png"
-          alt=""
-        />
+        <img width="100%" src="/cuttly.png" alt="" />
       </button>
 
       <button
@@ -180,11 +176,7 @@
         disabled
         class="submit-btn d-flex align-items-center justify-content-center btn border-0"
       >
-        <img
-          width="100%"
-          src="/bitly.png"
-          alt=""
-        />
+        <img width="100%" src="/bitly.png" alt="" />
       </button>
 
       <button
@@ -299,35 +291,12 @@
             $(this).html(currentIcon);
             $(".submit-btn").removeClass("disabled").prop("disabled", false);
             // if success
-            if (result.status == "success") {
-              let short = () => {
-                switch (provider) {
-                  case "bitly":
-                    return result.data.data.link;
-                    break;
 
-                  case "cuttly":
-                    return result.data.data.url.shortLink;
-                    break;
-
-                  case "shorturlat":
-                    return result.data.data;
-                    break;
-
-                  case "tinyurl":
-                  case "tinyone":
-                  case "rotf":
-                    return result.data.data.data.tiny_url;
-                    break;
-
-                  default:
-                    return "";
-                    break;
-                }
-              };
+            const url = result.data.url;
+            if (result.status == "success" && url) {
               $("#url-input").val("");
               $("#output").html(
-                `<a href="${short()}" target="_blank">${short()}</a>`
+                `<a href="${url}" target="_blank">${url}</a>`
               );
             } else {
               Swal.fire({

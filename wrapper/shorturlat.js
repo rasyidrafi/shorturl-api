@@ -24,7 +24,10 @@ class ShorturlatWrapper {
                 param
             )
             .then((response) => {
-                return this.parseHTML(response.data);
+                return {
+                    url: this.parseHTML(response.data),
+                    data: null,
+                };
             })
             .catch((err) => {
                 console.error(err);

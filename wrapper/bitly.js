@@ -18,7 +18,10 @@ class BitlyWrapper {
                 }
             )
             .then((response) => {
-                return response.data;
+                return {
+                    url: response.data.link,
+                    data: response.data,
+                };
             })
             .catch((err) => {
                 console.error(err);

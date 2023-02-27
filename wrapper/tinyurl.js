@@ -29,7 +29,10 @@ class TinyurlWrapper {
                 }
             )
             .then((response) => {
-                return response.data;
+                return {
+                    url: response.data.data.tiny_url,
+                    data: response.data,
+                };
             })
             .catch((err) => {
                 console.error(err);

@@ -14,7 +14,10 @@ class CuttlyWrapper {
         return axios
             .get(renderParam(param, CUTTLY_URL))
             .then((response) => {
-                return response.data;
+                return {
+                    url: response.data.url.shortLink,
+                    data: response.data,
+                };
             })
             .catch((err) => {
                 console.error(err);
