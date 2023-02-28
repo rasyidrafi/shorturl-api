@@ -7,7 +7,7 @@ micros:
     src: .
     engine: nodejs16
     primary: true
-    run: npm run start
+    run: node index.js
     presets:
       env:
         - name: API_CUTTLY
